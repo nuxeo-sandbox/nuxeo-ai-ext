@@ -1,0 +1,9 @@
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Manifest-Version: 1.0
+Bundle-Vendor: org.nuxeo.labs.ai
+Bundle-Version: 1.0.0
+Bundle-Name: nuxeo-ai-ext-core
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.nuxeo.labs.ai.nuxeo-ai-ext-core;singleton=true
+Nuxeo-Component: OSGI-INF/listener-contrib.xml

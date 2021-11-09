@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.labs.ai.listeners">
+
+    <require>org.nuxeo.ai.rekognition.listener</require>
+
+    <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
+        <listener name="documentTranscribeDone"
+                  async="true"
+                  postCommit="true"
+                  priority="999"
+                  class="org.nuxeo.labs.ai.ExtendedDocumentTranscribed">
+            <event>ENRICHMENT_MODIFIED</event>
+        </listener>
+    </extension>
+
+</component>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.nuxeo.labs.ai</groupId>
+        <artifactId>nuxeo-ai-ext-parent</artifactId>
+        <version>2021.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>nuxeo-ai-ext-core</artifactId>
+    <name>Nuxeo ai ext core</name>
+    <description/>
+    <dependencies>
+        <dependency>
+            <groupId>org.nuxeo.runtime</groupId>
+            <artifactId>nuxeo-runtime-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.nuxeo.ecm.platform</groupId>
+            <artifactId>nuxeo-platform-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.nuxeo.ecm.core</groupId>
+            <artifactId>nuxeo-core-event</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.nuxeo.ai</groupId>
+            <artifactId>nuxeo-ai-core</artifactId>
+            <version>${nuxeo.ai.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.nuxeo.ai</groupId>
+            <artifactId>nuxeo-ai-aws-core</artifactId>
+            <version>${nuxeo.ai.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
