@@ -2,9 +2,9 @@
 <package type="addon" name="nuxeo-ai-ext" version="@VERSION@">
   <title>Nuxeo AI Labs Extensions</title>
   <description>
-    <p>Put here an HTML description of your Nuxeo Package.</p>
+    <p>Additional AWS powered AI capabilities for the Nuxeo Platform</p>
   </description>
-  <!-- <home-page>http://doc.nuxeo.com/</home-page> -->
+  <home-page>https://github.com/nuxeo-sandbox/nuxeo-ai-ext</home-page>
   <vendor>Nuxeo</vendor>
   <installer restart="true" />
   <uninstaller restart="true" />
