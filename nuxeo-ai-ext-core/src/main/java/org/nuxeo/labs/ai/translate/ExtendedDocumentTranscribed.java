@@ -103,7 +103,6 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
         CaptionService cs = Framework.getService(CaptionService.class);
 
         List<String> languages = Arrays.asList(Framework.getProperty(CLOSED_CAPTION_AI_TRANSLATION_LANGUAGES, "").split(","));
-        languages.remove(srcLang);
 
         List<Map<String, Serializable>> allCaptions = new ArrayList<>();
         Map<String, Serializable> original = new HashMap<>();
@@ -112,6 +111,10 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
         allCaptions.add(original);
 
         for (String destLang : languages) {
+            if (destLang.equals(srcLang)) {
+                continue;
+            }
+
             TranslateTextResult result = translateService.translateText(String.join("\n", captionsText), srcLang, destLang);
             String text = result.getTranslatedText();
             List<String> lines = List.of(text.split("\n"));
