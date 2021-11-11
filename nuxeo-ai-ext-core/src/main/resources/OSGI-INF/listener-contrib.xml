@@ -8,7 +8,7 @@
                   async="true"
                   postCommit="true"
                   priority="999"
-                  class="org.nuxeo.labs.ai.ExtendedDocumentTranscribed">
+                  class="org.nuxeo.labs.ai.translate.ExtendedDocumentTranscribed">
             <event>ENRICHMENT_MODIFIED</event>
         </listener>
     </extension>

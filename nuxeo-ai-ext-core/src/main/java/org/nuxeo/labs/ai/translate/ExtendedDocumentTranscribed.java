@@ -1,4 +1,4 @@
-package org.nuxeo.labs.ai;
+package org.nuxeo.labs.ai.translate;
 
 import com.amazonaws.services.translate.model.TranslateTextResult;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +18,7 @@ import org.nuxeo.runtime.api.Framework;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import static org.nuxeo.ai.transcribe.AudioTranscription.Type.PRONUNCIATION;
 
 public class ExtendedDocumentTranscribed extends DocumentTranscribed {
 
+    public static final String CLOSED_CAPTION_AI_TRANSLATION_LANGUAGES = "closed.caption.ai.translation.languages";
     private static final Logger log = LogManager.getLogger(ExtendedDocumentTranscribed.class);
 
     @Override
@@ -74,8 +76,8 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
         }
 
         String srcLang = at.getResults().getLanguageCode();
-        if (srcLang.length()>2) {
-            srcLang = srcLang.substring(0,2);
+        if (srcLang.length() > 2) {
+            srcLang = srcLang.substring(0, 2);
         }
 
         List<Element> elements = at.getResults().getItems().stream().map(item -> {
@@ -100,20 +102,20 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
         TranslateService translateService = Framework.getService(TranslateService.class);
         CaptionService cs = Framework.getService(CaptionService.class);
 
-        List<String> languages = List.of("fr","es");
-        //languages.remove(srcLang);
+        List<String> languages = Arrays.asList(Framework.getProperty(CLOSED_CAPTION_AI_TRANSLATION_LANGUAGES, "").split(","));
+        languages.remove(srcLang);
 
-        List<Map<String,Serializable>> allCaptions = new ArrayList<>();
+        List<Map<String, Serializable>> allCaptions = new ArrayList<>();
         Map<String, Serializable> original = new HashMap<>();
-        original.put(LANGUAGE_KEY,srcLang);
+        original.put(LANGUAGE_KEY, srcLang);
         original.put(VTT_KEY_PROP, (Serializable) cs.write(captions));
         allCaptions.add(original);
 
-        for(String destLang : languages) {
-            TranslateTextResult result = translateService.translateText(String.join("\n",captionsText),srcLang,destLang);
+        for (String destLang : languages) {
+            TranslateTextResult result = translateService.translateText(String.join("\n", captionsText), srcLang, destLang);
             String text = result.getTranslatedText();
             List<String> lines = List.of(text.split("\n"));
-            List<Caption> translatedCaptions  = IntStream
+            List<Caption> translatedCaptions = IntStream
                     .range(0, lines.size())
                     .mapToObj(i -> {
                         Caption srcCaption = captions.get(i);
@@ -121,10 +123,10 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
                     })
                     .collect(Collectors.toList());
 
-            Blob translatedCaptionsFile = cs.write(translatedCaptions);;
+            Blob translatedCaptionsFile = cs.write(translatedCaptions);
 
             Map<String, Serializable> translation = new HashMap<>();
-            translation.put(LANGUAGE_KEY,destLang);
+            translation.put(LANGUAGE_KEY, destLang);
             translation.put(VTT_KEY_PROP, (Serializable) translatedCaptionsFile);
 
             allCaptions.add(translation);

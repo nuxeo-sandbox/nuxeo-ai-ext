@@ -5,3 +5,5 @@
 nuxeo.template.includes=common
 
 # org.nuxeo.ecm.instance.description=Nuxeo ECM customized with nuxeo-ai-ext
+
+closed.caption.ai.translation.languages=en,fr,es,ja
