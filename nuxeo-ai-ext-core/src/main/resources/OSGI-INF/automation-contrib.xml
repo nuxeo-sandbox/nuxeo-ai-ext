@@ -1,0 +1,7 @@
+<component name="org.nuxeo.labs.ai.automation" version="1.0">
+
+    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="contextHelpers">
+        <contextHelper id="Translate" class="org.nuxeo.labs.ai.translate.TranslateAutomationFunctions"/>
+    </extension>
+
+</component>
