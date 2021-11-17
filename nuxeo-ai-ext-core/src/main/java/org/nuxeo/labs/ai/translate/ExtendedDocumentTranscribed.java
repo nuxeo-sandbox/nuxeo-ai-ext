@@ -28,10 +28,12 @@ import java.util.stream.IntStream;
 import static org.nuxeo.ai.AIConstants.ENRICHMENT_FACET;
 import static org.nuxeo.ai.AIConstants.ENRICHMENT_ITEMS;
 import static org.nuxeo.ai.AIConstants.ENRICHMENT_SCHEMA_NAME;
+import static org.nuxeo.ai.enrichment.async.TranscribeEnrichmentProvider.PROVIDER_NAME;
 import static org.nuxeo.ai.listeners.VideoAboutToChange.CAPTIONABLE_FACET;
 import static org.nuxeo.ai.metadata.Caption.CAPTIONS_PROP;
 import static org.nuxeo.ai.metadata.Caption.VTT_KEY_PROP;
 import static org.nuxeo.ai.transcribe.AudioTranscription.Type.PRONUNCIATION;
+import static org.nuxeo.ecm.core.event.impl.DocumentEventContext.COMMENT_PROPERTY_KEY;
 
 public class ExtendedDocumentTranscribed extends DocumentTranscribed {
 
@@ -50,11 +52,15 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
             return;
         }
 
+        if (!PROVIDER_NAME.equals(docCtx.getProperty(COMMENT_PROPERTY_KEY))) {
+            return;
+        }
+
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> enrichments = (List<Map<String, Object>>) doc.getProperty(ENRICHMENT_SCHEMA_NAME,
                 ENRICHMENT_ITEMS);
         List<Blob> raws = enrichments.stream()
-                .filter(en -> "aws.transcribe".equals(en.getOrDefault("model", "none")))
+                .filter(en -> PROVIDER_NAME.equals(en.getOrDefault("model", "none")))
                 .map(en -> (Blob) en.get("raw"))
                 .collect(Collectors.toList());
 
