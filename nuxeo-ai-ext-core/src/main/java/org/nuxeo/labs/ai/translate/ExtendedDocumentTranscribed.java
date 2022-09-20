@@ -37,7 +37,6 @@ import org.nuxeo.runtime.api.Framework;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,7 +126,7 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
         TranslateService translateService = Framework.getService(TranslateService.class);
         CaptionService cs = Framework.getService(CaptionService.class);
 
-        List<String> languages = Arrays.asList(Framework.getProperty(CLOSED_CAPTION_AI_TRANSLATION_LANGUAGES, "").split(","));
+        String[] languages = Framework.getProperty(CLOSED_CAPTION_AI_TRANSLATION_LANGUAGES, "").split(",");
 
         List<Map<String, Serializable>> allCaptions = new ArrayList<>();
         Map<String, Serializable> original = new HashMap<>();

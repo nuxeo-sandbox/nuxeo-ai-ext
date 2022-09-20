@@ -19,12 +19,6 @@
 
 package org.nuxeo.labs.ai.translate;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nuxeo.ecm.core.event.EventService;
@@ -35,6 +29,10 @@ import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 
 import javax.inject.Inject;
+import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(FeaturesRunner.class)
 @Features({ PlatformFeature.class })
@@ -45,7 +43,7 @@ import javax.inject.Inject;
 })
 public class TestExtendedDocumentTranscribed {
 
-    protected final List<String> events = Arrays.asList("ENRICHMENT_MODIFIED");
+    protected final List<String> events = List.of("ENRICHMENT_MODIFIED");
 
     @Inject
     protected EventService s;
