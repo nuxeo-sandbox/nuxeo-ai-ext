@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.nuxeo</groupId>
     <artifactId>nuxeo-parent</artifactId>
-    <version>2021.10</version>
+    <version>2021.25</version>
   </parent>
 
   <groupId>org.nuxeo.labs.ai</groupId>
@@ -18,7 +18,7 @@
     <!-- Skip Nuxeo enforcer rules by default -->
     <nuxeo.skip.enforcer>true</nuxeo.skip.enforcer>
     <nuxeo.target.version>2021.*</nuxeo.target.version>
-    <nuxeo.ai.version>3.4.1</nuxeo.ai.version>
+    <nuxeo.ai.version>3.5.0</nuxeo.ai.version>
     <skipDocker>false</skipDocker>
   </properties>
 

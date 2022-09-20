@@ -14,6 +14,7 @@ mvn clean install
 
 - Automated AI based translation of Closed Caption file
 - AI Based Translate function for Automation Script and Chains
+- A filter for AI pipelines to select a given image or video rendition
 
 # How to Use
 ## Automated AI based translation of Closed Caption file
@@ -29,6 +30,36 @@ The list of supported languages is available [here](https://docs.aws.amazon.com/
 
 ```
 Translate.translate(aString, srcLang, destLang)
+```
+
+## Use a given picture or video conversion in pipelines
+
+For Videos
+
+```xml
+<extension point="pipes" target="org.nuxeo.ai.Pipeline">
+  <pipe id="pipe.video" enabled="${nuxeo.ai.video.enabled:=}" postCommit="true">
+    ...
+    <transformer class="org.nuxeo.labs.ai.pipes.MediaConversion2Stream">
+      <option name="blobProperties">MP4 1080p</option>
+      <option name="blobPropertiesType">video</option>
+    </transformer>
+  </pipe>
+</extension>
+```
+
+For Images
+
+```xml
+<extension point="pipes" target="org.nuxeo.ai.Pipeline">
+  <pipe id="pipe.images" enabled="${nuxeo.ai.images.enabled}" postCommit="true">
+    ...
+    <transformer class="org.nuxeo.labs.ai.pipes.MediaConversion2Stream">
+      <option name="blobProperties">FullHD</option>
+      <option name="blobPropertiesType">img</option>
+    </transformer>
+  </pipe>
+</extension>
 ```
 
 # Known limitations
