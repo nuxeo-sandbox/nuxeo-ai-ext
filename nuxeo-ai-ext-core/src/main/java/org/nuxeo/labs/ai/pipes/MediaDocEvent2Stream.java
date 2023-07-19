@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static org.nuxeo.ai.pipes.functions.PropertyUtils.getPropertyValue;
+
 public class MediaDocEvent2Stream extends DocEventToStream {
 
     public MediaDocEvent2Stream(List<PropertyType> blobProperties, List<String> textProperties, List<String> customProperties) {
@@ -56,6 +58,20 @@ public class MediaDocEvent2Stream extends DocEventToStream {
                 items.add(blobTextFromDoc);
             }
         });
+
+        textProperties.forEach(propName -> {
+            String text = getPropertyValue(doc, propName, String.class);
+            if (text != null) {
+                BlobTextFromDocument blobTextFromDoc = getBlobText(doc);
+                blobTextFromDoc.addProperty(propName, text);
+                items.add(blobTextFromDoc);
+            }
+        });
+
+        if (items.isEmpty() && !customProperties.isEmpty()) {
+            items.add(getBlobText(doc));
+        }
+
         return items;
     }
 }

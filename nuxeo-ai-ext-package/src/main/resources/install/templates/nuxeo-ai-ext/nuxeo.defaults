@@ -1,9 +1,1 @@
-## Edit this file to customize your configuration ##
-#nuxeo-ai-ext.target=
-
-# Set list of templates to include, comma separated values.
-nuxeo.template.includes=common
-
-# org.nuxeo.ecm.instance.description=Nuxeo ECM customized with nuxeo-ai-ext
-
 closed.caption.ai.translation.languages=en,fr,es,ja

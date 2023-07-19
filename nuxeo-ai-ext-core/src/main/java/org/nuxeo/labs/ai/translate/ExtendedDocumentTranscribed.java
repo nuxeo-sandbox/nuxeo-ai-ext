@@ -61,10 +61,9 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
     @Override
     protected void handleEvent(Event event) {
         EventContext ctx = event.getContext();
-        if (!(ctx instanceof DocumentEventContext)) {
+        if (!(ctx instanceof DocumentEventContext docCtx)) {
             return;
         }
-        DocumentEventContext docCtx = (DocumentEventContext) ctx;
         DocumentModel doc = docCtx.getSourceDocument();
         if (!doc.hasFacet(CAPTIONABLE_FACET) || !doc.hasFacet(ENRICHMENT_FACET)) {
             return;
@@ -80,7 +79,7 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
         List<Blob> raws = enrichments.stream()
                 .filter(en -> PROVIDER_NAME.equals(en.getOrDefault("model", "none")))
                 .map(en -> (Blob) en.get("raw"))
-                .collect(Collectors.toList());
+                .toList();
 
         if (raws.isEmpty()) {
             log.debug("Could not find RAW transcription for document id = " + doc.getId());
