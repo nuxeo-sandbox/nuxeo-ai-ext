@@ -18,7 +18,7 @@
     <!-- Skip Nuxeo enforcer rules by default -->
     <nuxeo.skip.enforcer>true</nuxeo.skip.enforcer>
     <nuxeo.target.version>2023.*</nuxeo.target.version>
-    <nuxeo.ai.version>2023.1.0-SNAPSHOT-PRESALES</nuxeo.ai.version>
+    <nuxeo.ai.version>4.0.1-SNAPSHOT</nuxeo.ai.version>
   </properties>
 
   <modules>
