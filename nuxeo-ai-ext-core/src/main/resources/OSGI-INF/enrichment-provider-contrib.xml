@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.labs.ai.enrichment" version="1.0">
+
+    <require>org.nuxeo.ai.transcribe.TranscribeService</require>
+
+    <extension point="enrichment" target="org.nuxeo.ai.services.AIComponent">
+        <enrichment name="aws.transcribeExt" kind="/tagging/transcribe"
+                    class="org.nuxeo.labs.ai.enricher.TranscribeEnrichmentProviderExt"
+                    maxSize="8589934592">
+            <mimeTypes>
+                <mimeType name="audio/mpeg" normalized="true"/>
+                <mimeType name="audio/wav" normalized="true"/>
+                <mimeType name="audio/flac" normalized="true"/>
+                <mimeType name="audio/ogg" normalized="true"/>
+            </mimeTypes>
+        </enrichment>
+    </extension>
+
+</component>

@@ -7,4 +7,6 @@ Bundle-Name: nuxeo-ai-ext-core
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.nuxeo.labs.ai.nuxeo-ai-ext-core;singleton=true
 Nuxeo-Component: OSGI-INF/listener-contrib.xml,
- OSGI-INF/automation-contrib.xml
+ OSGI-INF/automation-contrib.xml,
+ OSGI-INF/enrichment-provider-contrib.xml
+
