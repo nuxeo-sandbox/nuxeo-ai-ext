@@ -20,10 +20,13 @@
 package org.nuxeo.labs.ai.translate;
 
 import com.amazonaws.services.translate.model.TranslateTextResult;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.nuxeo.ai.enrichment.EnrichmentProvider;
 import org.nuxeo.ai.listeners.DocumentTranscribed;
 import org.nuxeo.ai.metadata.Caption;
+import org.nuxeo.ai.services.AIComponent;
 import org.nuxeo.ai.services.CaptionService;
 import org.nuxeo.ai.transcribe.AudioTranscription;
 import org.nuxeo.ai.translate.TranslateService;
@@ -32,6 +35,7 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
+import org.nuxeo.labs.ai.enricher.TranscribeEnrichmentProviderExt;
 import org.nuxeo.runtime.api.Framework;
 
 import java.io.IOException;
@@ -46,7 +50,7 @@ import java.util.stream.IntStream;
 import static org.nuxeo.ai.AIConstants.ENRICHMENT_FACET;
 import static org.nuxeo.ai.AIConstants.ENRICHMENT_ITEMS;
 import static org.nuxeo.ai.AIConstants.ENRICHMENT_SCHEMA_NAME;
-import static org.nuxeo.ai.enrichment.async.TranscribeEnrichmentProvider.PROVIDER_NAME;
+import static org.nuxeo.ai.enrichment.async.TranscribeEnrichmentProvider.PROVIDER_KIND;
 import static org.nuxeo.ai.listeners.VideoAboutToChange.CAPTIONABLE_FACET;
 import static org.nuxeo.ai.metadata.Caption.CAPTIONS_PROP;
 import static org.nuxeo.ai.metadata.Caption.VTT_KEY_PROP;
@@ -69,7 +73,18 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
             return;
         }
 
-        if (!PROVIDER_NAME.equals(docCtx.getProperty(COMMENT_PROPERTY_KEY))) {
+
+        String providerName =docCtx.getProperty(COMMENT_PROPERTY_KEY).toString();
+
+        if (StringUtils.isEmpty(providerName)) {
+            return;
+        }
+
+        AIComponent aiComponent = Framework.getService(AIComponent.class);
+        EnrichmentProvider provider = aiComponent.getEnrichmentProvider(providerName);
+
+
+        if (!PROVIDER_KIND.equals(provider.getKind())) {
             return;
         }
 
@@ -77,7 +92,7 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
         List<Map<String, Object>> enrichments = (List<Map<String, Object>>) doc.getProperty(ENRICHMENT_SCHEMA_NAME,
                 ENRICHMENT_ITEMS);
         List<Blob> raws = enrichments.stream()
-                .filter(en -> PROVIDER_NAME.equals(en.getOrDefault("model", "none")))
+                .filter(en -> providerName.equals(en.getOrDefault("model", "none")))
                 .map(en -> (Blob) en.get("raw"))
                 .toList();
 
