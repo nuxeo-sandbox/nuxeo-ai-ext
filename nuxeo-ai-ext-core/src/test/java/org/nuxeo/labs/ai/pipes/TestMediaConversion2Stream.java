@@ -42,7 +42,7 @@ import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
