@@ -129,15 +129,18 @@ The Marketplace ZIP path uses GitHub Actions variable `MP_TARGET_PATH`. Upload u
 > [!WARNING]
 > Check the repository is clean before starting. Alert and stop if there are uncommitted changes.
 
-1. Remove `-SNAPSHOT`: `mvn versions:set -DnewVersion=2025.1.0 -DgenerateBackupPoms=false`
+> [!IMPORTANT]
+> The version numbers below are examples only. Always read the actual current version from the POM before running any command, and derive the release and next snapshot versions from it (e.g. `2025.1.0-SNAPSHOT` → release `2025.1.0` → next snapshot `2025.2.0-SNAPSHOT`).
+
+1. Remove `-SNAPSHOT` from the current version: `mvn versions:set -DnewVersion=<current-version-without-SNAPSHOT> -DgenerateBackupPoms=false`
 2. Build: `mvn clean install -DskipTests`
-3. Copy `nuxeo-ai-ext-package/target/nuxeo-ai-ext-package-2025.1.0.zip` to `~/Downloads/`
-4. Bump to next snapshot: `mvn versions:set -DnewVersion=2025.2.0-SNAPSHOT -DgenerateBackupPoms=false`
+3. Copy `nuxeo-ai-ext-package/target/nuxeo-ai-ext-package-<version>.zip` to `~/Downloads/`
+4. Bump to next snapshot (increment minor, reset incremental to 0, add `-SNAPSHOT`): `mvn versions:set -DnewVersion=<next-version>-SNAPSHOT -DgenerateBackupPoms=false`
 5. Verify: `mvn clean install -DskipTests`
 6. Commit and push:
    ```bash
    git add .
-   git commit -m "Post 2025.1.0 release"
+   git commit -m "Post <version> release"
    git push
    ```
 
