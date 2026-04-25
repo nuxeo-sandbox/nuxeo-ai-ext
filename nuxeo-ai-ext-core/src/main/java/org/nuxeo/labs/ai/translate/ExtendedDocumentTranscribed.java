@@ -19,7 +19,7 @@
 
 package org.nuxeo.labs.ai.translate;
 
-import com.amazonaws.services.translate.model.TranslateTextResult;
+import org.nuxeo.ai.aws.dto.TranslationResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -153,8 +153,8 @@ public class ExtendedDocumentTranscribed extends DocumentTranscribed {
                 continue;
             }
 
-            TranslateTextResult result = translateService.translateText(String.join("\n", captionsText), srcLang, destLang);
-            String text = result.getTranslatedText();
+            TranslationResult result = translateService.translateText(String.join("\n", captionsText), srcLang, destLang);
+            String text = result.translatedText();
             List<String> lines = List.of(text.split("\n"));
             List<Caption> translatedCaptions = IntStream
                     .range(0, lines.size())

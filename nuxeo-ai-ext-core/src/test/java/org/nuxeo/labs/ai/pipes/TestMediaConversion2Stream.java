@@ -42,7 +42,7 @@ import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,12 +56,14 @@ import static org.nuxeo.ecm.platform.video.VideoConstants.TRANSCODED_VIDEOS_PROP
 @RunWith(FeaturesRunner.class)
 @Features({PlatformFeature.class})
 @Deploy({
+        "org.nuxeo.ecm.default.config",
         "org.nuxeo.labs.ai.nuxeo-ai-ext-core",
         "org.nuxeo.ai.ai-core",
         "org.nuxeo.ai.aws.aws-core",
         "org.nuxeo.ecm.platform.picture.core",
         "org.nuxeo.ecm.platform.tag",
-        "org.nuxeo.ecm.platform.video"
+        "org.nuxeo.ecm.platform.video",
+        "org.nuxeo.labs.ai.nuxeo-ai-ext-core:OSGI-INF/test-blob-provider.xml",
 })
 public class TestMediaConversion2Stream {
 

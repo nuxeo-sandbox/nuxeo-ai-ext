@@ -19,7 +19,7 @@
 
 package org.nuxeo.labs.ai.translate;
 
-import com.amazonaws.services.translate.model.TranslateTextResult;
+import org.nuxeo.ai.aws.dto.TranslationResult;
 import org.nuxeo.ai.translate.TranslateService;
 import org.nuxeo.ecm.automation.context.ContextHelper;
 import org.nuxeo.runtime.api.Framework;
@@ -30,8 +30,8 @@ public class TranslateAutomationFunctions implements ContextHelper {
 
     public String translate(String src, String srcLang, String destLang) {
         TranslateService translateService = Framework.getService(TranslateService.class);
-        TranslateTextResult result = translateService.translateText(src, srcLang, destLang);
-        return result.getTranslatedText();
+        TranslationResult result = translateService.translateText(src, srcLang, destLang);
+        return result.translatedText();
     }
 
 }

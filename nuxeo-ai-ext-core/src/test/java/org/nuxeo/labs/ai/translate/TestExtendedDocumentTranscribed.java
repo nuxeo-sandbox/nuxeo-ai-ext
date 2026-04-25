@@ -28,7 +28,7 @@ import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -37,9 +37,11 @@ import static org.junit.Assert.assertTrue;
 @RunWith(FeaturesRunner.class)
 @Features({ PlatformFeature.class })
 @Deploy({
+        "org.nuxeo.ecm.default.config",
         "org.nuxeo.labs.ai.nuxeo-ai-ext-core",
         "org.nuxeo.ai.ai-core",
-        "org.nuxeo.ai.aws.aws-core"
+        "org.nuxeo.ai.aws.aws-core",
+        "org.nuxeo.labs.ai.nuxeo-ai-ext-core:OSGI-INF/test-blob-provider.xml",
 })
 public class TestExtendedDocumentTranscribed {
 
